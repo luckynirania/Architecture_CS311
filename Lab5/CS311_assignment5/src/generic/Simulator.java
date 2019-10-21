@@ -67,15 +67,11 @@ public class Simulator {
 		int i = 0;
 		while(Simulator.simulationComplete == false)
 		{
-			processor.getIFUnit().performIF();
-			Clock.incrementClock();
-			processor.getOFUnit().performOF();
-			Clock.incrementClock();
-			processor.getEXUnit().performEX();
-			Clock.incrementClock();
-			processor.getMAUnit().performMA();
-			Clock.incrementClock();
 			processor.getRWUnit().performRW();
+			processor.getMAUnit().performMA();
+			processor.getEXUnit().performEX();
+			processor.getOFUnit().performOF();
+			processor.getIFUnit().performIF();
 			Clock.incrementClock();
 			i++;
 			System.out.println("-------------------------------------------");

@@ -5,7 +5,9 @@ public class OF_EX_LatchType {
 	boolean EX_enable;
 	String opcode;
 	int rs1,rs2,rd,imm;
+	int rs1addr,rs2addr;
 	int insPC;
+	boolean isNop;
 	
 	public OF_EX_LatchType()
 	{
@@ -16,6 +18,9 @@ public class OF_EX_LatchType {
 		rd = 70000;
 		imm = 70000;
 		insPC = -1;
+		isNop = false;
+		rs1addr = 45;
+		rs2addr = 45;
 	}
 
 	public boolean isEX_enable() {

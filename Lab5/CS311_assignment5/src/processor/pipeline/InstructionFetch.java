@@ -25,14 +25,15 @@ public class InstructionFetch {
 				currentPC = currentPC + EX_IF_Latch.offset - 1;
 				EX_IF_Latch.isBranchTaken = false;
 			}			
-			System.out.println(currentPC);
+			// System.out.println(currentPC);
 			int newInstruction = containingProcessor.getMainMemory().getWord(currentPC);
 			System.out.println("IF " + currentPC + "\t" + newInstruction);
+			IF_OF_Latch.instruction = newInstruction;
 			IF_OF_Latch.setInstruction(newInstruction);
 			IF_OF_Latch.insPC = currentPC;
 			containingProcessor.getRegisterFile().setProgramCounter(currentPC + 1);
 			
-			IF_EnableLatch.setIF_enable(false);
+			// IF_EnableLatch.setIF_enable(false);
 			IF_OF_Latch.setOF_enable(true);
 		}
 	}

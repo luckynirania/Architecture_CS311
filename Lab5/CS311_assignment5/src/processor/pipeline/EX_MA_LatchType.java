@@ -5,8 +5,10 @@ public class EX_MA_LatchType {
 	boolean MA_enable;
 	int aluResult;
 	int rs1,rs2,rd,imm;
+	int rs1addr,rs2addr;
 	String opcode;
 	int insPC;
+	boolean isNop;
 	
 	public EX_MA_LatchType()
 	{
@@ -18,6 +20,9 @@ public class EX_MA_LatchType {
 		imm = 70000;
 		aluResult = 70000;
 		insPC = -1;
+		isNop = false;
+		rs1addr = 45;
+		rs2addr = 45;
 	}
 
 	public boolean isMA_enable() {

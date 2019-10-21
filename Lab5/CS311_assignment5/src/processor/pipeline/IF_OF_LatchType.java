@@ -10,6 +10,7 @@ public class IF_OF_LatchType {
 	{
 		OF_enable = false;
 		insPC = -1;
+		instruction = -1999;
 	}
 
 	public boolean isOF_enable() {

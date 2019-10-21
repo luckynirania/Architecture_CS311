@@ -5,9 +5,11 @@ public class MA_RW_LatchType {
 	boolean RW_enable;
 	int aluResult;
 	int rs1,rs2,rd,imm;
+	int rs1addr,rs2addr;
 	String opcode;
 	int insPC;
 	boolean isLoad;
+	boolean isNop;
 	
 	public MA_RW_LatchType()
 	{
@@ -20,6 +22,9 @@ public class MA_RW_LatchType {
 		aluResult = 70000;
 		insPC = -1;
 		isLoad =  false;
+		isNop = false;
+		rs1addr = 45;
+		rs2addr = 45;
 	}
 
 	public boolean isRW_enable() {

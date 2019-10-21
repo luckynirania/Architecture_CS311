@@ -17,30 +17,41 @@ public class MemoryAccess {
 	public void performMA()
 	{
 		if(EX_MA_Latch.isMA_enable()) {
-			int aluResult = EX_MA_Latch.aluResult;
-			int rs1 = EX_MA_Latch.rs1;
-			int rs2 = EX_MA_Latch.rs2;
-			int rd = EX_MA_Latch.rd;
-			int imm = EX_MA_Latch.imm;
-			String opcode = EX_MA_Latch.opcode;
-
-			if(opcode.equals("10110")) { //load
-				MA_RW_Latch.isLoad = true;
+			if(EX_MA_Latch.isNop == true) {
+				MA_RW_Latch.isNop = true;
+				MA_RW_Latch.rd = 75000;
 			}
-			if(opcode.equals("10111")) {  //store
-				containingProcessor.getMainMemory().setWord(aluResult, rs1);
+			else {
+				MA_RW_Latch.isNop = false;
+				int aluResult = EX_MA_Latch.aluResult;
+				int rs1 = EX_MA_Latch.rs1;
+				int rs2 = EX_MA_Latch.rs2;
+				int rd = EX_MA_Latch.rd;
+				int imm = EX_MA_Latch.imm;
+				String opcode = EX_MA_Latch.opcode;
+
+				if(opcode.equals("10110")) { //load
+					MA_RW_Latch.isLoad = true;
+					aluResult = containingProcessor.getMainMemory().getWord(aluResult);
+				}
+				if(opcode.equals("10111")) {  //store
+					containingProcessor.getMainMemory().setWord(aluResult, rs1);
+				}
+
+				MA_RW_Latch.insPC = EX_MA_Latch.insPC;
+				System.out.println("MA\t" + EX_MA_Latch.insPC + "\trs1:" + rs1 + "\trs2:" + rs2 + "\trd:" + rd + "\timm:" + imm + "\talu:" + aluResult);
+
+				MA_RW_Latch.aluResult = aluResult;
+				MA_RW_Latch.rs1 = rs1;
+				MA_RW_Latch.rs2 = rs2;
+				MA_RW_Latch.rd = rd;
+				MA_RW_Latch.imm = imm;
+				MA_RW_Latch.opcode = opcode;
 			}
-
-			MA_RW_Latch.insPC = EX_MA_Latch.insPC;
-			System.out.println("MA " + EX_MA_Latch.insPC);
-
-			MA_RW_Latch.aluResult = aluResult;
-			MA_RW_Latch.rs1 = rs1;
-			MA_RW_Latch.rs2 = rs2;
-			MA_RW_Latch.rd = rd;
-			MA_RW_Latch.imm = imm;
-			MA_RW_Latch.opcode = opcode;
-			EX_MA_Latch.setMA_enable(false);
+			// EX_MA_Latch.setMA_enable(false);
+			if(EX_MA_Latch.opcode.equals("11101") == true ) {
+				EX_MA_Latch.setMA_enable(false);
+			}
 			MA_RW_Latch.setRW_enable(true);
 		}
 		//TODO
