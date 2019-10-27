@@ -19,6 +19,7 @@ public class RegisterWrite {
 	{
 		if(MA_RW_Latch.isRW_enable())
 		{
+			// MA_RW_Latch.RW_enable = false;
 			if(MA_RW_Latch.isNop == false) {
 				int aluResult = MA_RW_Latch.aluResult;
 				int rs1 = MA_RW_Latch.rs1;
@@ -50,7 +51,7 @@ public class RegisterWrite {
 				// if instruction being processed is an end instruction, remember to call Simulator.setSimulationComplete(true);
 				
 				
-				// MA_RW_Latch.setRW_enable(false);
+				MA_RW_Latch.setRW_enable(false);
 				// IF_EnableLatch.setIF_enable(true);
 				if(MA_RW_Latch.opcode.equals("11101")) {
 					Simulator.setSimulationComplete(true);

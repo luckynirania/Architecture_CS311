@@ -9,6 +9,7 @@ public class EX_MA_LatchType {
 	String opcode;
 	int insPC;
 	boolean isNop;
+	boolean isBusy;
 	
 	public EX_MA_LatchType()
 	{
@@ -23,6 +24,7 @@ public class EX_MA_LatchType {
 		isNop = false;
 		rs1addr = 45;
 		rs2addr = 45;
+		isBusy = false;
 	}
 
 	public boolean isMA_enable() {

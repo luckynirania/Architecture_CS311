@@ -5,12 +5,14 @@ public class IF_OF_LatchType {
 	boolean OF_enable;
 	int instruction;
 	int insPC;
+	boolean isBusy;
 	
 	public IF_OF_LatchType()
 	{
 		OF_enable = false;
 		insPC = -1;
 		instruction = -1999;
+		isBusy = false;
 	}
 
 	public boolean isOF_enable() {

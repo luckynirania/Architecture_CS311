@@ -13,9 +13,13 @@ public class Simulator {
 		
 	static Processor processor;
 	static boolean simulationComplete;
+	static EventQueue eventQueue;
+	public static long storeresp;
 	
 	public static void setupSimulation(String assemblyProgramFile, Processor p) throws FileNotFoundException
 	{
+		eventQueue = new EventQueue();
+		storeresp = 0;
 		Simulator.processor = p;
 		loadProgram(assemblyProgramFile);
 		
@@ -70,6 +74,7 @@ public class Simulator {
 			processor.getRWUnit().performRW();
 			processor.getMAUnit().performMA();
 			processor.getEXUnit().performEX();
+			eventQueue.processEvents();
 			processor.getOFUnit().performOF();
 			processor.getIFUnit().performIF();
 			Clock.incrementClock();
@@ -88,4 +93,8 @@ public class Simulator {
 	{
 		simulationComplete = value;
 	}
+	public static EventQueue getEventQueue() { 
+		return eventQueue ; 
+	}
+
 }

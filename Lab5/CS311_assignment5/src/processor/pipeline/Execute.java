@@ -22,7 +22,10 @@ public class Execute {
 	
 	public void performEX()
 	{
-		if(OF_EX_Latch.isEX_enable()) {
+		if(EX_MA_Latch.isBusy == true) OF_EX_Latch.isBusy = true;
+		else OF_EX_Latch.isBusy = false;
+		// if(OF_EX_Latch.EX_enable == false)  EX_MA_Latch.MA_enable = false;
+		if(OF_EX_Latch.isEX_enable() && EX_MA_Latch.isBusy == false) {
 			int offset = 70000;
 			if(OF_EX_Latch.isNop == true) {
 				EX_MA_Latch.isNop = true;
@@ -215,6 +218,7 @@ public class Execute {
 
 				// OF_EX_Latch.setEX_enable(false);
 			}
+			OF_EX_Latch.setEX_enable(false);
 			EX_MA_Latch.setMA_enable(true);
 			
 		}

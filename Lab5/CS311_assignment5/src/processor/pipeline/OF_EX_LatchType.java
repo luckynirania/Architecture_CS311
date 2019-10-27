@@ -8,6 +8,7 @@ public class OF_EX_LatchType {
 	int rs1addr,rs2addr;
 	int insPC;
 	boolean isNop;
+	boolean isBusy;
 	
 	public OF_EX_LatchType()
 	{
@@ -21,6 +22,7 @@ public class OF_EX_LatchType {
 		isNop = false;
 		rs1addr = 45;
 		rs2addr = 45;
+		isBusy = false;
 	}
 
 	public boolean isEX_enable() {
