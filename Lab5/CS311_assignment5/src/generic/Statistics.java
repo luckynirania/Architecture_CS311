@@ -7,6 +7,8 @@ public class Statistics {
 	// TODO add your statistics here
 	static int numberOfInstructions;
 	static int numberOfCycles;
+	static float CPI;
+	static float IPC;
 	
 
 	public static void printStatistics(String statFile)
@@ -17,6 +19,8 @@ public class Statistics {
 			
 			writer.println("Number of instructions executed = " + numberOfInstructions);
 			writer.println("Number of cycles taken = " + numberOfCycles);
+			writer.println("CPI = " + CPI);
+			writer.println("IPC = " + IPC);
 			
 			// TODO add code here to print statistics in the output file
 			
@@ -35,5 +39,12 @@ public class Statistics {
 
 	public void setNumberOfCycles(int numberOfCycles) {
 		Statistics.numberOfCycles = numberOfCycles;
+	}
+	
+	public void setCPI() {
+		Statistics.CPI = (float)numberOfCycles/(float)numberOfInstructions;
+	}
+	public void setIPC() {
+		Statistics.IPC = (float)numberOfInstructions/(float)numberOfCycles;
 	}
 }

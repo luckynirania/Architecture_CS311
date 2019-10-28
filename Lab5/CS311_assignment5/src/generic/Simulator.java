@@ -15,11 +15,13 @@ public class Simulator {
 	static boolean simulationComplete;
 	static EventQueue eventQueue;
 	public static long storeresp;
+	public static int ins_count;
 	
 	public static void setupSimulation(String assemblyProgramFile, Processor p) throws FileNotFoundException
 	{
 		eventQueue = new EventQueue();
 		storeresp = 0;
+		ins_count = 0;
 		Simulator.processor = p;
 		loadProgram(assemblyProgramFile);
 		
@@ -68,7 +70,7 @@ public class Simulator {
 	
 	public static void simulate()
 	{
-		int i = 0;
+		int cycles = 0;
 		while(Simulator.simulationComplete == false)
 		{
 			processor.getRWUnit().performRW();
@@ -78,14 +80,17 @@ public class Simulator {
 			processor.getOFUnit().performOF();
 			processor.getIFUnit().performIF();
 			Clock.incrementClock();
-			i++;
+			cycles++;
 			System.out.println("-------------------------------------------");
 		}
-		
+		System.out.println("Cycles Taken:         " + cycles);
+		System.out.println("Instruction Executed: " + ins_count);
 		// TODO
 		Statistics stat = new Statistics();
-		stat.setNumberOfCycles((int)Clock.getCurrentTime());
-		stat.setNumberOfInstructions((int)Clock.getCurrentTime()/5);
+		stat.setNumberOfCycles(cycles);
+		stat.setNumberOfInstructions(ins_count);
+		stat.setCPI();
+		stat.setIPC();
 		// set statistics
 	}
 	

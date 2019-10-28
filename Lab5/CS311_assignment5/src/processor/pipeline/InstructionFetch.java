@@ -32,6 +32,7 @@ public class InstructionFetch implements Element{
 				EX_IF_Latch.isBranchTaken = false;
 			}
 			System.out.println("new instrution requested");
+			Simulator.ins_count++;
 			Simulator.getEventQueue().addEvent(
 				new MemoryReadEvent(
 					Clock.getCurrentTime() + Configuration.mainMemoryLatency, 
@@ -68,7 +69,10 @@ public class InstructionFetch implements Element{
 		else {
 			MemoryResponseEvent event = (MemoryResponseEvent) e ; 
 			System.out.println("Memory is responding");
-			if(EX_IF_Latch.isBranchTaken == false)	IF_OF_Latch.setInstruction(event.getValue());
+			if(EX_IF_Latch.isBranchTaken == false)	{
+				IF_OF_Latch.setInstruction(event.getValue());
+				// Simulator.ins_count++;
+			}
 			else IF_OF_Latch.setInstruction(0);
 			IF_OF_Latch.insPC = this.currentPC;
 			containingProcessor.getRegisterFile().setProgramCounter(this.currentPC + 1);
