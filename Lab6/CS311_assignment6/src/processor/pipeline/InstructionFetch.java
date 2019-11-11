@@ -39,7 +39,7 @@ public class InstructionFetch implements Element{
 			Simulator.ins_count++;
 			Simulator.getEventQueue().addEvent(
 				new MemoryReadEvent(
-					Clock.getCurrentTime(), 
+					Clock.getCurrentTime()+this.cache.latency, 
 					this, 
 					this.cache, 
 					currentPC)

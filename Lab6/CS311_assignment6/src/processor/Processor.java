@@ -46,8 +46,8 @@ public class Processor {
 		EX_IF_Latch = new EX_IF_LatchType();
 		MA_RW_Latch = new MA_RW_LatchType();
 		
-		cache_i = new Cache(this);
-		cache_d = new Cache(this);
+		cache_i = new Cache(this,8,1024);
+		cache_d = new Cache(this,4,128);
 		IFUnit = new InstructionFetch(this, IF_EnableLatch, IF_OF_Latch, EX_IF_Latch, cache_i);
 		OFUnit = new OperandFetch(this, IF_OF_Latch, OF_EX_Latch,EX_MA_Latch,MA_RW_Latch,IF_EnableLatch);
 		EXUnit = new Execute(this, IF_OF_Latch, OF_EX_Latch, EX_MA_Latch, EX_IF_Latch, IF_EnableLatch);
@@ -57,6 +57,7 @@ public class Processor {
 	
 	public void printState(int memoryStartingAddress, int memoryEndingAddress)
 	{
+
 		System.out.println(registerFile.getContentsAsString());
 		
 		System.out.println(mainMemory.getContentsAsString(memoryStartingAddress, memoryEndingAddress));		

@@ -68,7 +68,7 @@ public class MemoryAccess implements Element{
 					Simulator.storeresp = Clock.getCurrentTime();
 					Simulator.getEventQueue().addEvent(
 						new MemoryWriteEvent(
-							Clock.getCurrentTime() + 1, 
+							Clock.getCurrentTime()+this.cache.latency, 
 							this, 
 							this.cache, 
 							aluResult, 

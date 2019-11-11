@@ -6,18 +6,20 @@ import configuration.Configuration;
 
 public class Cache implements Element {
 	Processor containingProcessor;
-	public int latency =  4;
-	int csize = 128;
+	public int latency ;
+	int csize ;
 	int miss_addr;
 	int read;
     int write_data;
     CacheLine[] cach;
     boolean isPresent = true;
-    int temp = (int)(Math.log(this.csize/8)/Math.log(2));
+    int temp;
     int[] index;
-	public Cache(Processor containingProcessor) {
+	public Cache(Processor containingProcessor, int l, int s) {
 		this.containingProcessor = containingProcessor;
-		
+        this.latency = l;
+        this.csize = s;
+        temp   = (int)(Math.log(this.csize/8)/Math.log(2));
         cach=new CacheLine[csize/8];
 		for(int i=0;i<csize/8;i++) {
 			cach[i]=new CacheLine();
@@ -78,13 +80,22 @@ public class Cache implements Element {
     public void cacheWrite(int address, int value){
         String a=Integer.toBinaryString(address);
         String ind ="";
+        int temp_ind;
+
         for(int i =0;i<32-a.length();i++){
             a = "0" + a;
         }
         for(int i = 0; i<temp;i++ ){
             ind = ind + "1";
         }
-        int temp_ind = address & Integer.parseInt(ind, 2);
+        if(temp ==0){
+            temp_ind = 0;
+        }
+        else
+          {
+               temp_ind = address & Integer.parseInt(ind, 2);
+          }
+        // int temp_ind = address & Integer.parseInt(ind, 2);
         int tag = Integer.parseInt(a.substring(0, a.length()-temp),2);
         cach[temp_ind].setValue(tag, value);
 
@@ -101,7 +112,7 @@ public class Cache implements Element {
             if(isPresent == true){
                 Simulator.getEventQueue().addEvent(
                     new MemoryResponseEvent(
-                        Clock.getCurrentTime() + latency, 
+                        Clock.getCurrentTime() + this.latency, 
                         this, 
                         ee.getRequestingElement(), 
                         data)
@@ -138,7 +149,7 @@ public class Cache implements Element {
             // }
             Simulator.getEventQueue().addEvent(
 				new ExecutionCompleteEvent(
-					Clock.getCurrentTime() + 10, 
+					Clock.getCurrentTime()+Configuration.mainMemoryLatency, 
 					containingProcessor.getMainMemory(), 
 					ee.getRequestingElement())
 			);
